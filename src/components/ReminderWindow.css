@@ -1,0 +1,98 @@
+/* The popup is its own window, so it owns the whole viewport. */
+.reminder {
+  box-sizing: border-box;
+  min-height: 100vh;
+  padding: 0.75rem 1.25rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  background: var(--card);
+  border-radius: 0.75rem;
+  border: 1px solid var(--border);
+}
+
+/* Undecorated windows cannot be moved unless something is draggable. */
+.reminder header {
+  padding: 0.35rem 0;
+  cursor: grab;
+}
+
+.reminder .kind {
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+.reminder h1 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.reminder .instructions {
+  margin: 0;
+  line-height: 1.45;
+  flex: 1;
+}
+
+.timer {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.bar {
+  flex: 1;
+  height: 0.35rem;
+  border-radius: 0.2rem;
+  background: var(--border);
+  overflow: hidden;
+}
+
+.fill {
+  height: 100%;
+  background: var(--accent);
+  transition: width 1s linear;
+}
+
+.count {
+  font-variant-numeric: tabular-nums;
+  color: var(--fg-muted);
+  font-size: 0.8125rem;
+  min-width: 5.5rem;
+  text-align: right;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.actions button {
+  flex: 1;
+}
+
+.actions .primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.actions .primary:hover:not(:disabled) {
+  color: #fff;
+  opacity: 0.9;
+}
+
+.media {
+  width: 100%;
+  max-height: 11rem;
+  object-fit: contain;
+  border-radius: 0.4rem;
+  background: var(--bg);
+}
+
+.media-missing {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--fg-muted);
+}

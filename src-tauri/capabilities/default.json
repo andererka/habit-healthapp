@@ -1,0 +1,16 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Capability for the settings and reminder windows",
+  "windows": [
+    "main",
+    "reminder"
+  ],
+  "permissions": [
+    "core:default",
+    "opener:default",
+    "notification:default",
+    "store:default",
+    "dialog:default"
+  ]
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <!-- Agent app: lives in the menu bar, no Dock icon, no app menu.
+       We also set ActivationPolicy::Accessory at runtime for `tauri dev`,
+       which runs an unbundled binary and so never reads this file. Declaring
+       it here additionally avoids a Dock icon flashing at launch. -->
+  <key>LSUIElement</key>
+  <true/>
+</dict>
+</plist>

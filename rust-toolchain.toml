@@ -1,0 +1,5 @@
+# Pin the toolchain in-repo so colleagues and CI resolve the same thing.
+# "stable" resolves to the native host target on each machine, which also avoids
+# the broken stable-x86_64-apple-darwin default that exists on some setups.
+[toolchain]
+channel = "stable"

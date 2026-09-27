@@ -1,0 +1,91 @@
+# Builds installers for all three platforms and attaches them to a Release.
+#
+# Tauri cannot cross-compile, so each installer must be built on its own OS —
+# which is why this workflow exists rather than a local build script.
+#
+# Cut a release with:
+#   npm version patch && git push --follow-tags
+name: release
+
+on:
+  push:
+    tags:
+      - "v*"
+  # Lets you rehearse the build without publishing anything.
+  workflow_dispatch:
+
+jobs:
+  build:
+    permissions:
+      contents: write
+    strategy:
+      # One platform failing should not throw away the others' artifacts.
+      fail-fast: false
+      matrix:
+        include:
+          - platform: macos-14
+            # One binary for both Apple Silicon and Intel.
+            args: "--target universal-apple-darwin"
+            rust-targets: "aarch64-apple-darwin,x86_64-apple-darwin"
+          - platform: ubuntu-22.04
+            # Oldest practical runner: glibc compatibility is forward-only, so
+            # building on a newer Ubuntu would exclude older distros.
+            args: ""
+            rust-targets: ""
+          - platform: windows-latest
+            args: ""
+            rust-targets: ""
+
+    runs-on: ${{ matrix.platform }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Linux build dependencies
+        if: matrix.platform == 'ubuntu-22.04'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libwebkit2gtk-4.1-dev \
+            libappindicator3-dev \
+            librsvg2-dev \
+            patchelf
+          # The tray icon needs an appindicator implementation at runtime.
+          sudo apt-get install -y libayatana-appindicator3-dev
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.rust-targets }}
+
+      - uses: swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+
+      - run: npm ci
+
+      - name: Check
+        run: |
+          npx tsc --noEmit
+          cargo test --manifest-path src-tauri/Cargo.toml
+
+      - uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: ${{ github.ref_name }}
+          releaseName: HabitHealthApp ${{ github.ref_name }}
+          releaseBody: |
+            Unsigned builds — your OS will warn you on first launch.
+
+            - **macOS**: right-click the app → Open → Open, or run
+              `xattr -dr com.apple.quarantine /Applications/HabitHealthApp.app`
+            - **Windows**: "Windows protected your PC" → More info → Run anyway
+            - **Linux**: `chmod +x` the AppImage, or install the .deb
+          releaseDraft: true
+          prerelease: false
+          args: ${{ matrix.args }}
