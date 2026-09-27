@@ -1,5 +1,11 @@
 # HabitHealthApp
 
+**Exercise and posture reminders for desk workers — a small menu bar app for
+macOS, Windows and Linux.**
+
+![platforms](https://img.shields.io/badge/platform-macOS%20%7C%20Windows%20%7C%20Linux-blue)
+![licence](https://img.shields.io/badge/licence-MIT-green)
+
 Desk reminders that actually interrupt you: a short exercise at an interval you
 choose, and a separate nudge to switch between sitting and standing. The idea
 was to keep it simple and configurable for different exercises and time
@@ -133,6 +139,11 @@ The default pop-up window style avoids this entirely, and is recommended.
   Windows code-signing certificate.
 - **No automatic updates.** A new version means downloading it again.
 - **Library export does not include media files**, only the exercise text.
+
+## Licence
+
+[MIT](LICENSE) — use it, fork it, change it. If it is useful to your team,
+take it.
 
 ---
 

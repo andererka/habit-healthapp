@@ -2,6 +2,37 @@
   "name": "HabitHealthApp",
   "private": true,
   "version": "0.1.1",
+  "description": "Desk reminders for office workers: short exercises at an interval you choose, plus sit/stand posture nudges. Cross-platform menu bar app.",
+  "keywords": [
+    "exercise-reminder",
+    "stretch-reminder",
+    "posture",
+    "sit-stand",
+    "ergonomics",
+    "desk-exercise",
+    "break-reminder",
+    "health",
+    "productivity",
+    "menubar",
+    "tray-app",
+    "tauri",
+    "rust",
+    "react",
+    "desktop-app",
+    "macos",
+    "windows",
+    "linux"
+  ],
+  "license": "MIT",
+  "author": "Katharina Anderer",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andererka/habit-healthapp.git"
+  },
+  "homepage": "https://github.com/andererka/habit-healthapp#readme",
+  "bugs": {
+    "url": "https://github.com/andererka/habit-healthapp/issues"
+  },
   "type": "module",
   "scripts": {
     "dev": "vite",
